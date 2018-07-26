@@ -2,3 +2,5 @@
 
 GitHub init.
 Project init.
+Stylesheet created for Install page with responsive design in mind.
+Stylesheet created for main site with responsive design in mind.
