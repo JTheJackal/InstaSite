@@ -22,35 +22,38 @@
             <div class="col-4"></div>
         </div>
         
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <h3>Database Details</h3>
-                <form class="installForm" action="installAction.php" method="post">
-                    Host: <input type="text" name="host"><br>
-                    Name: <input type="text" name="dbName"><br>
-                    User: <input type="text" name="dbUser"><br>
-                    Password: <input type="text" name="dbPass"><br>
-                    <input class="submitBTN" type="submit">
-                </form>
+        <form class="installForm" action="installAction.php" method="post">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    
+                    <h3>Database Details</h3>
+
+                        Host: <input type="text" name="host"><br>
+                        Name: <input type="text" name="dbName"><br>
+                        User: <input type="text" name="dbUser"><br>
+                        Password: <input type="text" name="dbPass"><br>
+
+                </div>
+                <div class="col-4"></div>
             </div>
-            <div class="col-4"></div>
-        </div>
-        
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <h3>Admin Details</h3>
-                <form class="installForm" action="installAction.php" method="post">
-                    Username: <input type="text" name="host"><br>
-                    Display Name: <input type="text" name="dbName"><br>
-                    Password: <input type="text" name="dbUser"><br>
-                    Confirm Password: <input type="text" name="dbPass"><br>
-                    Profile Picture: <br>
-                </form>
+
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <h3>Admin Details</h3>
+                    
+                        Username: <input type="text" name="adminUser"><br>
+                        Display Name: <input type="text" name="adminName"><br>
+                        Password: <input type="text" name="adminPass"><br>
+                        Confirm Password: <input type="text" name="adminPass2"><br>
+                        Profile Picture: <br>
+                        <input class="submitBTN" type="submit">
+                    
+                </div>
             </div>
+        </form>
             <div class="col-4"></div>
-        </div>
     </div>
 </body>
 </html>
