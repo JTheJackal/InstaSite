@@ -1,1 +1,7 @@
-<H1>Test</H1>
+<html>
+    <head>
+        <title>InstaBuilder</title>
+    </head>
+<body>
+</body>
+</html>

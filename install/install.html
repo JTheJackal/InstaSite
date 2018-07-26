@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/stylesheet1.css">
+        <title>InstaBuilder</title>
+    </head>
+<body>
+
+    <div class="installContainer">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <h1>InstaSite Installer</h1>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <p>Fill in the information and submit to install the site.</p>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <form class="installForm" action="installAction.php" method="post">
+                    Location: <input type="text" name="location"><br>
+                    Name: <input type="text" name="dbName"><br>
+                    Password: <input type="text" name="dbPass"><br>
+                    <input class="submitBTN" type="submit">
+                </form>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+</body>
+</html>
