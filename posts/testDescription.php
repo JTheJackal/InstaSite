@@ -1,9 +1,9 @@
 <?php
 
-    require("../database/conn.php");
+    require("./database/conn.php");
 
     $connection = mysqli_connect("localhost", $dbUser, $dbPass);
-    mysqli_select_db($connection, $database);
+    mysqli_select_db($connection, $dbName);
 
     $sql = "SELECT postid, image, title, description FROM posts";
     $result = $connection->query($sql);
@@ -15,4 +15,5 @@
             $title1 = $row["title"];
             $description1 = $row["description"];
         }
+    }
 ?>

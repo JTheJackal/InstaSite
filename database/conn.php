@@ -1,7 +1,7 @@
 <?php
 
 //Connection details.
-$dbName = "instagramTest"
+$dbName = "instagramTest";
 $dbUser = "instaroot";
 $dbPass = "instaPASS";
 ?>
