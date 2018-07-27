@@ -14,6 +14,7 @@
             //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
             $title1 = $row["title"];
             $description1 = $row["description"];
+            $image = $row["image"];
         }
     }
 ?>

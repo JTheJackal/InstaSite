@@ -17,7 +17,10 @@
     <div class="container">    
         <div class="row">
             <div class="col-4 tile">
-                <p>IMG</p>
+                <?php include 'posts/testDescription.php';
+                    echo "<img src='$image' />";
+
+                ?>
                 <div class="textBox">
                     <?php include 'posts/testDescription.php';
                         echo "<h3>$title1</h3><br><p>$description1</p>";
