@@ -29,6 +29,7 @@
         die("Connection failed: " . $connection->connect_error);
     }else{
         echo "Connected successfully";
+        writeFile($username, $password, $database);
     }
 
     //Retrieve required SQL file.
@@ -48,6 +49,27 @@
         } else {
             echo "Error creating tables: " . $connection->error;
         }
+    }
+
+    function writeFile($username, $password, $database){
+        
+        $filename = "../database/conn.php";
+        $ourFileName =$filename;
+        $ourFileHandle = fopen($ourFileName, 'w');
+
+
+
+        $written =  "<?php
+        
+                     //Database connection details
+                     $dbUser = " . $username . "
+                     $dbName = " . $database . "
+                     $dbPass = " . $password . ";
+                     ?>";
+
+        fwrite($ourFileHandle,$written);
+
+        fclose($ourFileHandle);
     }
 ?>
 
