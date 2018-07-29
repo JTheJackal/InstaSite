@@ -1,7 +1,6 @@
 <?php
-
-//Connection details.
-$dbName = "instagramTest";
-$dbUser = "instaroot";
-$dbPass = "instaPASS";
-?>
+        //Database connection details
+        $dbUser = 'instaroot';
+        $dbName = 'instagramdb';
+        $dbPass = 'instaPASS';
+        ?>

@@ -4,3 +4,28 @@ GitHub init.
 Project init.
 Stylesheet created for Install page with responsive design in mind.
 Stylesheet created for main site with responsive design in mind.
+Structure of installer created.
+Structure of main site started.
+Installer connects to database and creates tables with required fields.
+
+27/07/2018
+
+Details of database now written to file and stored for post-installation operations.
+Structure of installer expanded. Installer now takes in admin details and site otions.
+Structure of main page expanded. Area for navbars included and aspect ratio of tiles maintained across all screen resolutions.
+Tile previews now constructed programmatically by taking content stored in the database.
+Tile previews now have additional information hovering over them.
+
+28/08/2018
+
+Index HTML is now generated during installation.
+Additional alterations to CSS for responsive layout.
+Keywords are read and seperated into individual hashtags ready to be used by the scraper.
+
+29/09/2018
+
+Instagram scraper completed.
+Functions created to run through the JSON and pick out required information.
+Gathered information placed into Database under appropriate columns.
+String operations abstracted for use anywhere.
+Generated HTML now takes into account the number of requested posts when creating image tiles.

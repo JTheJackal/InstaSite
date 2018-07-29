@@ -1,5 +1,6 @@
 /* For mobile phones: */
 [class*="col-"] {
+    
     width: 100%;
     float: left;
     border: 1px solid black;
@@ -21,6 +22,7 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
+    background-color: #3d3d3d;
 }
 
 h1 {
@@ -40,6 +42,25 @@ input {
 .header {
     
     background-color: #3d3d3d;
+    position: relative;
+    height: 10%;
+}
+
+.footer {
+    
+    background-color: #3d3d3d;
+    position: relative;
+    padding-left: auto;
+    padding-right: auto;
+    height: 10%;
+    margin: 0;
+    width: 100%;
+}
+
+.banner {
+    
+    height: 100%;
+    position: relative;
 }
 
 .container {
@@ -56,16 +77,71 @@ input {
 
 .tile {
     
-    padding-top: 100%;
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+}
+
+.imgholder {
+    
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.aspectIMG {
+    
+    width: 100%;
+    height: 100%;
 }
 
 .textBox {
 
     width: 100%;
-    height: 15%;
+    height: 25%;
     position: absolute;
-    background-color: gold;
-    margin-top: -27%;
+    background-color: black;
+    opacity: 0.5;
+    bottom: 0;
+}
+
+.navContainer {
+    
+    position: relative;
+    height: 100%;
+    padding-left: auto;
+    padding-right: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navFootContainer {
+    
+    width: auto;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    height: 100%;
+}
+
+.navBTN {
+
+    position: relative;
+    float: right;
+    width: 33.33%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.navFootBTN {
+
+    position: relative;
+    float: right;
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -116,44 +192,29 @@ input {
     .col-10 {width: 83.33%;}
     .col-11 {width: 91.66%;}
     .col-12 {width: 100%;}
-
-    [class*="col-"] {
-
-        float: left;
-        border: 1px solid gray;
+    
+    .tile {
+    
+        padding-bottom: 33.33%;
+        position: relative;
     }
 
-    * {
+    .imgholder {
 
-        box-sizing: border-box;
-    }
-
-    body {
-
+        position: absolute;
         width: 100%;
         height: 100%;
-        padding: 0;
-        margin: 0;
-    }
-
-    h3 {
-
-
-    }
-
-    input {
-
-    }
-
-    .row::after {
-
-        content: "";
-        clear: both;
-        display: table;
     }
 
     .textBox {
 
-
+        width: 100%;
+        height: 25%;
+        position: absolute;
+        background-color: black;
+        opacity: 0.5;
+        bottom: 0;
+        margin: 0;
+        padding: 0;
     }
 }
