@@ -5,11 +5,14 @@
     //Handling database and registration details.
     //Confirms success to user.
 
+    require("../operations/stringOps.php");
+
     $totalPosts = 30;
     $servername = "localhost";
     $username = $_POST['dbUser'];
     $database = $_POST['dbName'];
     $password = $_POST['dbPass'];
+    $themeNo = 1;
 
     // Create connection and select database.
     //$conn = new mysqli($servername, $username, $password);
@@ -39,13 +42,15 @@
     $sqlSource = file_get_contents('db/createPostsTable.sql');
     createTable($connection, $sqlSource);
 
+    $headerPath = handleUpload("header");
+
     //Find the hashtags entered by the user and store them seperately in an array.
     $keywords = $_POST['siteKeywords'];
 
     //Count how many keywords were entered.
     $totalKeywords = findTotalKeywords($keywords);
 
-    //Initialise array with the first hashtag.
+    //Initialise array.
     $keywordsArray = array();
 
     if($totalKeywords > 1){
@@ -80,20 +85,102 @@
         array_push($keywordsArray, $keywords); 
     }
 
-    
+    //$header = validateImageFile();
+
     scrapeKeywords($totalPosts, $keywordsArray, $connection);
 
 
     //Check how many entries in the Database were made.
-    $sql = "SELECT postid, image, description FROM posts";
+    $sql = "SELECT postid, image, description, short_description FROM posts";
     $result = $connection->query($sql);        
     $totalPosts = $result->num_rows;
 
     //Finally, generate HTML to build the desired site.
-    constructSite($totalPosts);
+    constructSite($totalPosts, $headerPath, $themeNo);
 
     //Testing
     //testOutput($totalKeywords, $keywords, $keywordsArray);
+
+    function handleUpload($type){
+        
+        $directory = "../assets/uploads/";
+        $uploadOk = 0;
+
+        switch ($type){
+                
+            case "header":
+                
+                //Handle the image uploads.
+                $target_file = $directory . basename($_FILES["headerUpload"]["name"]);
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $fileName = "header." . pathinfo($_FILES["headerUpload"]["name"], PATHINFO_EXTENSION);
+                $target_file = $directory . $fileName;
+                
+                break;
+                
+        }
+        
+        //Make sure the upload is an image.
+        $check = getimagesize($_FILES["headerUpload"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+        
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+        // Check file size
+        if ($_FILES["headerUpload"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+        
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES["headerUpload"]["tmp_name"], $target_file)) {
+                echo "The file ". basename( $_FILES["headerUpload"]["name"]). " has been uploaded.";
+                return $target_file;
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+    }
+
+    function validateImageFile(){
+        
+        $directory = "../assets/uploads/";
+        
+        $target_file = $directory . basename($_FILES["headerPic"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        // Check if image file is a actual image or fake image
+        if(isset($_POST["submit"])) {
+            $check = getimagesize($_FILES["headerPic"]["tmp_name"]);
+            if($check !== false) {
+                
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 
     function createTable($connection, $sqlSource){
         
@@ -138,11 +225,10 @@
 
                 //Retrieve info from the nodes
                 $tempImage = scrapeImage($nodes, $i);
-                //$tempTitle = scrapeTitle($nodes, $i);
                 $tempDescription = scrapeDescription($nodes, $i);
+                $tempShortDescription = shortenDescription($tempDescription);
                 $tempDate = scrapeDate($nodes, $i);
                 $tempPoster = scrapePoster($nodes, $i);
-
                 $tempSaveImage = file_get_contents($tempImage);
 
                 //Store the image locally in case the URL should ever change
@@ -152,11 +238,11 @@
                 fclose($location);
 
                 //Add post details to database table.
-                $sqlSource = "INSERT INTO `Posts` (`image`, `description`, `postdate`, `postedby`) VALUES ('$filepath" . "$i.jpg', '$tempDescription', '$tempDate', '$tempPoster')";
+                $sqlSource = "INSERT INTO `Posts` (`image`, `description`, `short_description`, `postdate`, `postedby`) VALUES ('$filepath" . "$i.jpg', '$tempDescription', '$tempShortDescription', '$tempDate', '$tempPoster')";
 
                 if(mysqli_query($connection, $sqlSource)){
 
-                    echo "New record created successfully";
+                    //echo "New record created successfully";
                 }else{
 
                     echo "Error creating post: " . $connection->error;
@@ -171,126 +257,127 @@
         //var_dump($nodes);
     }
 
-    function constructSite($totalPosts){
-        
+    function constructSite($totalPosts, $headerPath, $themeNo){
         
         
         $filename = "../operations/constructIndex.php";
         $ourFileName =$filename;
         $ourFileHandle = fopen($ourFileName, 'w');
-        $generatedVarCode = generateVarsCode($totalPosts);
-        $generatedTiles = createTilesHTML($totalPosts);
+        $generatedVarCode = generateVarsCode($totalPosts, $themeNo);
+        $generatedTiles = createTilesHTML($totalPosts, $themeNo);
+        $written = "";
 
-
-        //The code for the index page of the website
-        $written = '<?php
-                        
-        include "./posts/testDescription.php";' . $generatedVarCode . '
         
-        $index = \'<div class="header">
-                    <div class="row">
-                        <div class="col-4 banner"><h1>Header</h1></div>
-                        <div class="col-5"></div>
-                        <div class="col-3 navContainer">
-                            <div class="navBTN"><p>Log In</p></div>
-                            <div class="navBTN"><p>Search</p></div>
-                            <div class="navBTN"><p>Home</p></div>
+        switch($themeNo){
+                
+            case 1:
+                
+                //The code for the index page of the website
+                $written = '<?php
+
+                include "./posts/testDescription.php";' . $generatedVarCode . '
+
+                $index = \'<div class="header">
+                            <div class="row">
+                                <div class="col-4 banner"><img src="' . $headerPath . '" class="headerIMG" /></div>
+                                <div class="col-5"></div>
+                                <div class="col-3 navContainer">
+                                    <div class="navBTN"><p>Log In</p></div>
+                                    <div class="navBTN"><p>Search</p></div>
+                                    <div class="navBTN"><p>Home</p></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="container">' . $generatedTiles . '</div>
+                        <div class="container">' . $generatedTiles . '</div>
 
-                <div class="footer">
-                    <div class="col-5"></div>
-                    <div class="col-2">
-                        <div class="navFootBTN"><p>Next</p></div>
-                        <div class="navFootBTN"><p>Previous</p></div>
-                    </div>
-                    <div class="col-5"></div>
-                </div>\'
-            ?>';
+                        <div class="footer">
+                            <div class="col-5"></div>
+                            <div class="col-2">
+                                <div class="navFootBTN"><p>Next</p></div>
+                                <div class="navFootBTN"><p>Previous</p></div>
+                            </div>
+                            <div class="col-5"></div>
+                        </div>\'
+                    ?>';
+                    break;
+        }
+
+        
 
             fwrite($ourFileHandle,$written);
 
             fclose($ourFileHandle);
     }
 
-    function generateVarsCode($totalPosts){
+    function generateVarsCode($totalPosts, $themeNo){
         
         $tempVars = "";
         
         //Generate a new variable for each tile until the total requested has been matched.
         for($i = 0; $i < $totalPosts; $i++){
             
-            if($i == 0){
+            switch($themeNo){
+                    
+                case 1:
+                    
+                    if($i == 0){
                 
-                $tempVars = '$tile0 = "<div class=\'imgholder\'><img class=\'aspectIMG\' src=\'$imageArray[0]\' width=\'100%\' height=\'100%\' /><div class=\'textBox\'><br><p>$descriptionArray[0]</p></div></div>";';
-            }else{
-                
-                $tempVars = $tempVars . '$tile'.$i.' = "<div class=\'imgholder\'><img class=\'aspectIMG\' src=\'$imageArray['.$i.']\' width=\'100%\' height=\'100%\' /><div class=\'textBox\'><br><p>$descriptionArray['.$i.']</p></div></div>";';
+                        $tempVars = '$tile0 = "<div class=\'imgholder\'><img class=\'aspectIMG\' src=\'$imageArray[0]\' width=\'100%\' height=\'100%\' /><div class=\'textBox\'><br><p1>$descriptionArray[0]</p1></div></div>";';
+                    }else{
+
+                        $tempVars = $tempVars . '$tile'.$i.' = "<div class=\'imgholder\'><img class=\'aspectIMG\' src=\'$imageArray['.$i.']\' width=\'100%\' height=\'100%\' /><div class=\'textBox\'><br><p1>$descriptionArray['.$i.']</p1></div></div>";';
+                    }
+                    break;
             }
+            
         }
         
         return $tempVars;
     }
 
-    function createTilesHTML($totalPosts){
+    function createTilesHTML($totalPosts, $themeNo){
         
         $tempHTML = "";
         
         for($i = 0; $i < $totalPosts; $i++){
-            
-            if($i == 0){
-                
-                $tempHTML = '<div class="row">
-                        <div class="col-4 tile">\'
-                        . $tile'.$i.' .
-                        \'</div>';
-            }else if($i % 3 == 0 && $i > 0){
-                
-                $tempHTML = $tempHTML . '</div>
-                        <div class="row">
-                        <div class="col-4 tile">\'
-                        . $tile'.$i.' .
-                        \'</div>';
-            }else if($i % 3 == 0 && $i > 0 && $i+1 == $totalPosts){
-            
-                $tempHTML = $tempHTML . '</div>
-                        <div class="row">
-                        <div class="col-4 tile">\'
-                        . $tile'.$i.' .
-                        \'</div>
-                        </div>';
-            }else{
-                
-                $tempHTML = $tempHTML . '<div class="col-4 tile">\'
-                        . $tile'.$i.' .
-                        \'</div>';
-            }
+            switch($themeNo){
+
+                case 1:
+
+                    if($i == 0){
+
+                        $tempHTML = '<div class="row">
+                                <div class="col-4 tile">\'
+                                . $tile'.$i.' .
+                                \'</div>';
+                    }else if($i % 3 == 0 && $i > 0){
+
+                        $tempHTML = $tempHTML . '</div>
+                                <div class="row">
+                                <div class="col-4 tile">\'
+                                . $tile'.$i.' .
+                                \'</div>';
+                    }else if($i % 3 == 0 && $i > 0 && $i+1 == $totalPosts){
+
+                        $tempHTML = $tempHTML . '</div>
+                                <div class="row">
+                                <div class="col-4 tile">\'
+                                . $tile'.$i.' .
+                                \'</div>
+                                </div>';
+                    }else{
+
+                        $tempHTML = $tempHTML . '<div class="col-4 tile">\'
+                                . $tile'.$i.' .
+                                \'</div>';
+                    }
+                    break;
+            } 
         }
         
         return $tempHTML;
         
-    }
-
-    function findKeyword($string, $from, $to){
-        
-        //Locate a substring between desired search terms.
-        $sub = substr($string, strpos($string,$from)+strlen($from),strlen($string));
-        return substr($sub,0,strpos($sub,$to));
-    }
-
-    function extractKeyword($str, $removeStr){
-        
-        //Remove everything except the desired string.
-        return str_replace("str", "", "#" . $removeStr . " ");
-    }
-
-    function removeString ($string, $search){
-        
-        //Remove nothing except the desired string.
-        return str_replace($search, "", $string);
     }
 
     function testOutput($total, $words, $output){

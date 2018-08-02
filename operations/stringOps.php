@@ -18,4 +18,16 @@
         //Remove nothing except the desired string.
         return str_replace($search, "", $string);
     }
+
+    function shortenDescription($longDescription){
+        
+        if(strlen($longDescription) > 100){
+            
+            $tempDescription = substr($longDescription, 0, 100);
+            return $tempDescription . "...";
+        }else{
+            
+            return $longDescription . "...";
+        }
+    }
 ?>

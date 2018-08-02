@@ -10,7 +10,7 @@
     $connection = mysqli_connect("localhost", $dbUser, $dbPass);
     mysqli_select_db($connection, $dbName);
 
-    $sql = "SELECT postid, image, description FROM posts";
+    $sql = "SELECT postid, image, description, short_description FROM posts";
     $result = $connection->query($sql);
 
     if ($result->num_rows > 0) {
@@ -21,7 +21,7 @@
             //$description1 = $row["description"];
             //$image = $row["image"];
             
-            $descriptionArray[$counter] = $row["description"];
+            $descriptionArray[$counter] = $row["short_description"];
             $imageArray[$counter] = $row["image"];
             $counter = $counter + 1;
         }

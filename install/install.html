@@ -4,81 +4,48 @@
         <title>InstaBuilder</title>
     </head>
 <body>
-        <div class="row header">
-            <div class="col-4 darker fillHeight"></div>
-            <div class="col-4 dark fillHeight">
-                <h1>InstaSite Installer</h1>
-            </div>
-            <div class="col-4 darker fillHeight"></div>
-        </div>
-        
-        <div class="row slim">
-            <div class="col-4 darker fillHeight"></div>
-            <div class="col-4 infoPanel fillHeight">
-                <p>Fill in the information and submit to install the site.</p>
-            </div>
-            <div class="col-4 darker fillHeight"></div>
-        </div>
-        
-        <form action="installAction.php" method="post">
-            <div class="row formTheme">
-                <div class="col-4 darker fillHeight"></div>
-                <div class="col-4 dark fillHeight">
-                    
-                    <h3>Database Details</h3>
+    <div class="container">
+        <form action="installAction.php" method="post" enctype="multipart/form-data">
 
-                        <p>Host: <input type="text" name="host"></p><br>
-                        <p>Name: <input type="text" name="dbName"></p><br>
-                        <p>User: <input type="text" name="dbUser"></p><br>
-                        <p>Password: <input type="text" name="dbPass"></p><br>
+            <h3>Database Details</h3>
 
-                </div>
-                <div class="col-4 darker fillHeight"></div>
-            </div>
+            <p>Host: <input type="text" name="host"></p><br>
+            <p>Name: <input type="text" name="dbName"></p><br>
+            <p>User: <input type="text" name="dbUser"></p><br>
+            <p>Password: <input type="text" name="dbPass"></p><br>
 
-            <div class="row formTheme">
-                <div class="col-4 darker fillHeight"></div>
-                <div class="col-4 dark fillHeight">
-                    <h3>Admin Details</h3>
-                    
-                        <p>Username: <input type="text" name="adminUser"></p><br>
-                        <p>Display Name: <input type="text" name="adminName"></p><br>
-                        <p>Password: <input type="text" name="adminPass"></p><br>
-                        <p>Confirm Password: <input type="text" name="adminPass2"></p><br>
-                        <p>Profile Picture: </p><br>
-                </div>
-                <div class="col-4 darker fillHeight"></div>
-            </div>
-            
-            <div class="row formThemeLong">
-                <div class="col-4 darker fillHeight"></div>
-                <div class="col-4 dark fillHeight">
-                    <h3>Site Details</h3>
-                    
-                        <p>Title: <input type="text" name="siteTitle"></p><br>
-                        <p>Header: <input type="text" name="siteHeader"></p><br>
-                        <p>Theme:  <select>
-                                  <option name="siteTheme" value="dark">Dark</option>
-                                </select></p>  <br>
-                        <p>Tile Size:  <select>
-                                  <option name="largeTiles" value="large">Large</option>
-                                  <option name="mediumTiles" value="medium">Medium</option>
-                                  <option name="smallTiles" value="small">Small</option>
-                                </select></p>  <br>
-                        <p>Language: <select>
-                                    <option value="English">Dutch</option>
-                                    <option value="English">English</option>
-                                    <option value="English">French</option>
-                                    <option value="English">German</option>
-                                    <option value="English">Italian</option>
-                                    <option value="English">Polish</option>
-                                    <option value="English">Spanish</option>
-                                  </select></p>  <br>
-                        <p>Hashtags: <input type="text" name="siteKeywords" placeholder="#keywords"></p><br>
-                        <input class="submitBTN" type="submit" value="Build">  
-                </div>
-                <div class="col-4 darker fillHeight"></div>
-            </div> 
-        </form>  
+            <h3>Admin Details</h3>
+
+            <p>Username: <input type="text" name="adminUser"></p><br>
+            <p>Display Name: <input type="text" name="adminName"></p><br>
+            <p>Password: <input type="text" name="adminPass"></p><br>
+            <p>Confirm Password: <input type="text" name="adminPass2"></p><br>
+            <p>Profile Picture: </p><br>
+
+            <h3>Site Details</h3>
+
+            <p>Title: <input type="text" name="siteTitle"></p><br>
+            <p>Header: <input type="file" name="headerUpload" id="headerUpload"></p><br>
+            <p>Theme:  <select>
+                      <option name="siteTheme" value="dark">Dark</option>
+                    </select></p>  <br>
+            <p>Tile Size:  <select>
+                      <option name="largeTiles" value="large">Large</option>
+                      <option name="mediumTiles" value="medium">Medium</option>
+                      <option name="smallTiles" value="small">Small</option>
+                           </select></p>  <br>
+            <p>Language: <select>
+                        <option value="English">Dutch</option>
+                        <option value="English">English</option>
+                        <option value="English">French</option>
+                        <option value="English">German</option>
+                        <option value="English">Italian</option>
+                        <option value="English">Polish</option>
+                        <option value="English">Spanish</option>
+                      </select></p>  <br>
+            <p>Keyword: <input type="text" name="siteKeywords"></p><br>
+            <input class="submitBTN" type="submit" value="Build">  
+        </form>
+    </div>
 </body>
 </html>

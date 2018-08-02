@@ -11,6 +11,12 @@ html, body {
     background-color: #4b6584;
 }
 
+form {
+    
+    padding: 0;
+    margin: 0;
+}
+
 p {
     
     line-height: normal;
@@ -24,7 +30,6 @@ input, select {
     
     float: right;
     clear: both;
-    margin-right: 30%;
 }
 
 h1 {
@@ -72,7 +77,10 @@ input {
 
 .row::after {
     
-
+    
+    content: "";
+    clear: both;
+    display: table;
 }
 
 .slim {
@@ -120,4 +128,12 @@ input {
 .fillHeight {
     
     height: 100%;
+}
+
+.container {
+    
+    background-color: #303952;
+    width: 30%;
+    padding: 1% 1% 1% 1%;
+    margin: auto;
 }

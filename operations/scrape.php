@@ -6,7 +6,7 @@
         //Store the Instagram search term result as JSON.
         $json = json_decode(file_get_contents("https://www.instagram.com/explore/tags/$keyword/?__a=1", true));
         
-        //Step through JSON until the node that contains post nodes is found.
+        //Step through JSON until the node that contains post nodes is found. This is specific to the nodes layout on Instagram.
         $nodes = $json->graphql->hashtag->edge_hashtag_to_media->edges;
         
         return $nodes;
