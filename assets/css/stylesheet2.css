@@ -387,12 +387,9 @@
     
     .banner {
         
-        border-top: 1px;
-        border-right: 0;
-        border-left: 0;
-        border-bottom: 0;
-        height: 100%;
-        padding-left: 1%;
+        border: 1px solid black;
+        height: 450px;
+        padding: 2px;
     }
     
     .headerIMG {
@@ -408,11 +405,23 @@
     
     .navContainer {
         
-        border-top: 0;
-        border-right: 0;
-        border-left: 0;
-        border-bottom: 0;
+        border: 1px solid black;
+        height: 50px;
     }
+    
+    featureContainer {
+        
+        height: 100%;
+        border: 1px solid black;
+        background-color: green;
+    }
+    
+    bioContainer {
+        
+        height: 100%;
+        border: 1px solid black;
+    }
+    
     
     .tile {
     

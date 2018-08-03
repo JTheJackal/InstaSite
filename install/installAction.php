@@ -12,7 +12,7 @@
     $username = $_POST['dbUser'];
     $database = $_POST['dbName'];
     $password = $_POST['dbPass'];
-    $themeNo = 1;
+    $themeNo = 2;
 
     // Create connection and select database.
     //$conn = new mysqli($servername, $username, $password);
@@ -301,6 +301,36 @@
                         </div>\'
                     ?>';
                     break;
+                
+            case 2:
+                
+                $written = '<?php
+
+                include "./posts/testDescription.php";' . $generatedVarCode . '
+
+                $index = \'<div class="header">
+                                <div class="col-12 banner"><img src="' . $headerPath . '" class="headerIMG" /></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 navContainer">
+                                    <div class="navBTN"><p>Log In</p></div>
+                                    <div class="navBTN"><p>Search</p></div>
+                                    <div class="navBTN"><p>Home</p></div>
+                                </div>
+                        </div>
+
+                        <div class="container">' . $generatedTiles . '</div>
+
+                        <div class="footer">
+                            <div class="col-5"></div>
+                            <div class="col-2">
+                                <div class="navFootBTN"><p>Next</p></div>
+                                <div class="navFootBTN"><p>Previous</p></div>
+                            </div>
+                            <div class="col-5"></div>
+                        </div>\'
+                    ?>';
+                    break;
         }
 
         
@@ -329,6 +359,17 @@
                         $tempVars = $tempVars . '$tile'.$i.' = "<div class=\'imgholder\'><img class=\'aspectIMG\' src=\'$imageArray['.$i.']\' width=\'100%\' height=\'100%\' /><div class=\'textBox\'><br><p1>$descriptionArray['.$i.']</p1></div></div>";';
                     }
                     break;
+                    
+                case 2:
+                    
+                    if($i == 0){
+                
+                        $tempVars = '$tile0 = "<div class=\'imgholder\'><img class=\'aspectIMG\' src=\'$imageArray[0]\' width=\'100%\' height=\'100%\' /><div class=\'textBox\'><br><p1>$descriptionArray[0]</p1></div></div>";';
+                    }else{
+
+                        $tempVars = $tempVars . '$tile'.$i.' = "<div class=\'imgholder\'><img class=\'aspectIMG\' src=\'$imageArray['.$i.']\' width=\'100%\' height=\'100%\' /><div class=\'textBox\'><br><p1>$descriptionArray['.$i.']</p1></div></div>";';
+                    }
+                    break;
             }
             
         }
@@ -345,6 +386,37 @@
 
                 case 1:
 
+                    if($i == 0){
+
+                        $tempHTML = '<div class="row">
+                                <div class="col-4 tile">\'
+                                . $tile'.$i.' .
+                                \'</div>';
+                    }else if($i % 3 == 0 && $i > 0){
+
+                        $tempHTML = $tempHTML . '</div>
+                                <div class="row">
+                                <div class="col-4 tile">\'
+                                . $tile'.$i.' .
+                                \'</div>';
+                    }else if($i % 3 == 0 && $i > 0 && $i+1 == $totalPosts){
+
+                        $tempHTML = $tempHTML . '</div>
+                                <div class="row">
+                                <div class="col-4 tile">\'
+                                . $tile'.$i.' .
+                                \'</div>
+                                </div>';
+                    }else{
+
+                        $tempHTML = $tempHTML . '<div class="col-4 tile">\'
+                                . $tile'.$i.' .
+                                \'</div>';
+                    }
+                    break;
+                    
+                case 2:
+                    
                     if($i == 0){
 
                         $tempHTML = '<div class="row">
