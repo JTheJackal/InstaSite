@@ -42,7 +42,7 @@
     $sqlSource = file_get_contents('db/createPostsTable.sql');
     createTable($connection, $sqlSource);
 
-    $headerPath = handleUpload("header");
+    //$headerPath = handleUpload("header");
 
     //Find the hashtags entered by the user and store them seperately in an array.
     $keywords = $_POST['siteKeywords'];
@@ -309,14 +309,19 @@
                 include "./posts/testDescription.php";' . $generatedVarCode . '
 
                 $index = \'<div class="header">
-                                <div class="col-12 banner"><img src="' . $headerPath . '" class="headerIMG" /></div>
-                            </div>
-                            <div class="row">
+                                <div class="col-8 banner"><img src="' . $headerPath . '" class="headerIMG" /></div>
                                 <div class="col-4 navContainer">
                                     <div class="navBTN"><p>Log In</p></div>
                                     <div class="navBTN"><p>Search</p></div>
                                     <div class="navBTN"><p>Home</p></div>
                                 </div>
+                            </div>
+
+                        <div class="col-7 featuredContainer">
+                            <div class="featureBlock"></div>
+                        </div>
+                        <div class="col-5 bioContainer"> 
+                            <div class="bioBlock"></div>
                         </div>
 
                         <div class="container">' . $generatedTiles . '</div>

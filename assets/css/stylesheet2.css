@@ -16,7 +16,6 @@
 
         width: 100%;
         float: left;
-        border: 1px solid black;
     }
 
     p {
@@ -62,7 +61,7 @@
 
         background-color: #3d3d3d;
         position: relative;
-        height: 10%;
+        height: 40%;
     }
 
     .footer {
@@ -85,6 +84,7 @@
     .container {
 
         background-color: #4b4b4b;
+        height: 100%;
     }
 
     .row {
@@ -315,7 +315,7 @@
     .navContainer {
 
         position: relative;
-        height: 100%;
+        max-height: 75px;
         padding-left: auto;
         padding-right: auto;
         padding-top: 0;
@@ -382,13 +382,17 @@
     [class*="col-"] {
     
         float: left;
-        border: 1px solid black;
+    }
+    
+    html, body {
+        
+        width: 100%;
+        height: 100%;
     }
     
     .banner {
         
-        border: 1px solid black;
-        height: 450px;
+        height: 100%;
         padding: 2px;
     }
     
@@ -406,22 +410,31 @@
     .navContainer {
         
         border: 1px solid black;
-        height:75px;
+        height: 100%;
     }
     
-    featureContainer {
+    .featuredContainer {
+        
+        position: relative;
+        height: 60%;
+        padding: 0.7%;
+        border: 0;
+    }
+    
+    .bioContainer {
+        
+        position: relative;
+        height: 60%;
+        padding: 0.7%;
+        border: 0;
+    }
+    
+    container {
         
         height: 100%;
-        border: 1px solid black;
-        background-color: green;
+        position: relative;
+        background-color: black;
     }
-    
-    bioContainer {
-        
-        height: 100%;
-        border: 1px solid black;
-    }
-    
     
     .tile {
     
@@ -436,6 +449,27 @@
         overflow: hidden;
         width: 100%;
         height: 100%;
+    }
+    
+    .featureBlock {
+        
+        width: 100%;
+        height: 100%;
+        background-color: black;
+    }
+    
+    .bioBlock {
+        
+        width: 100%;
+        height: 100%;
+        background-color: black;
+    }
+    
+    .header {
+
+        background-color: #3d3d3d;
+        position: relative;
+        height: 10%;
     }
     
     .textBox {
