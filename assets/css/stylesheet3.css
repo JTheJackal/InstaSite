@@ -425,16 +425,25 @@
         
         position: relative;
         height: 60%;
-        padding: 0.7%;
+        padding: 0;
         border: 0;
+    }
+    
+    .pageContainer {
+        
+        position: relative;
+        height: 100%;
     }
     
     .bioContainer {
         
-        position: relative;
-        height: 60%;
+        float: right;
+        position: fixed;
+        height: 100%;
         padding: 0.7%;
+        right: 0;
         border: 0;
+        background-color: #1d1d1d;
     }
     
     .reelContainer {
@@ -445,13 +454,12 @@
     
     .avatar {
         
-        position: absolute;
-        width: 20%;
-        height: 20%;
-        right: 5%;
-        top: 7%;
+        position: relative;
+        width: 100%;
+        height: 100%;
         background-image: url(/assets/uploads/avatar.jpg);
-        
+        background-size:cover;
+        border-radius: 100%;
     }
     
     container {
@@ -531,19 +539,37 @@
     
     .welcomeBlock {
         
-        height: 30%;
-        background-color: #2d2d2d;
+        float: left;
+        height: 20%;
+        background-color: #3d3d3d;
     }
     
     .welcomeBlockExt {
         
-        height: 70%;
-        background-color: #3d3d3d;
+        float: left;
+        height: 60%;
+        background-color: #2d2d2d;
     }
     
     .avatarBlock {
         
-        height: 30%;
+        padding: 3%;
+        float: right;
+        height: 20%;
+        background-color: #3d3d3d;
+    }
+    
+    .tagTrendHeader {
+        
+        padding-top: 3%;
+        height: 10%;
+        background-color: #1d1d1d;
+    }
+    
+    .tagTrendContent {
+        
+        padding-top: 3%;
+        height: 10%;
         background-color: #2d2d2d;
     }
     
@@ -552,6 +578,23 @@
         height: 20%;
         padding: 0;
         background-color: #2d2d2d;
+    }
+    
+    .tileCover {
+        
+        opacity: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 96%;
+        height: 96%;
+        position: absolute;
+        background-color: black;
+    }
+    
+    .tileCover:hover {
+        
+        opacity: 0.2;
     }
     
     p {
