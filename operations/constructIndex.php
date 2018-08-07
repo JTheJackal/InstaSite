@@ -24,94 +24,6 @@
                         </div>
                     </div>
                     <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile3 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[3]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[3]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile4 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[4]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[4]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile5 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[5]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[5]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile6 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[6]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[6]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile7 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[7]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[7]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile8 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[8]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[8]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile9 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[9]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[9]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile10 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[10]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[10]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile11 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[11]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[11]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile12 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[12]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[12]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
-                    </div>";$tile13 = "<div class='imgholder'>
-                        <img class='aspectIMG' src='$imageArray[13]' width='100%' height='100%' />
-                        <div class='textBox'>
-                        <br>
-                        <p1>$descriptionArray[13]</p1>
-                        </div>
-                    </div>
-                    <div class='tileCover' onclick='window.location=\"https://www.google.com\"'>
                     </div>";
 
                 $index = '<div class="col-12 pageContainer">
@@ -124,36 +36,6 @@
                                 . $tile1 .
                                 '</div><div class="col-4 tile">'
                                 . $tile2 .
-                                '</div></div>
-                                <div class="row">
-                                <div class="col-4 tile">'
-                                . $tile3 .
-                                '</div><div class="col-4 tile">'
-                                . $tile4 .
-                                '</div><div class="col-4 tile">'
-                                . $tile5 .
-                                '</div></div>
-                                <div class="row">
-                                <div class="col-4 tile">'
-                                . $tile6 .
-                                '</div><div class="col-4 tile">'
-                                . $tile7 .
-                                '</div><div class="col-4 tile">'
-                                . $tile8 .
-                                '</div></div>
-                                <div class="row">
-                                <div class="col-4 tile">'
-                                . $tile9 .
-                                '</div><div class="col-4 tile">'
-                                . $tile10 .
-                                '</div><div class="col-4 tile">'
-                                . $tile11 .
-                                '</div></div>
-                                <div class="row">
-                                <div class="col-4 tile">'
-                                . $tile12 .
-                                '</div><div class="col-4 tile">'
-                                . $tile13 .
                                 '</div>
                                 </div>
                             </div>

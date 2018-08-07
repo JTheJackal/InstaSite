@@ -7,7 +7,7 @@
 
     require("../operations/stringOps.php");
 
-    $totalPosts = 15;
+    $totalPosts = 4;
     $servername = "localhost";
     $username = $_POST['dbUser'];
     $database = $_POST['dbName'];
@@ -99,6 +99,8 @@
     //Finally, generate HTML to build the desired site.
     //constructSite($totalPosts, $headerPath, $themeNo);
     constructSite($totalPosts, "", $themeNo);
+
+    constructPostPages($connection, $totalPosts, "", $themeNo);
 
     //constructPosts($totalPosts, $headerPath, $themeNo);
 
@@ -401,10 +403,10 @@
             fclose($ourFileHandle);
     }
 
-    function constructPostPages($totalPosts, $headerPath, $themeNo){
-        
-        $tempDescription = "";
-        
+    function constructPostPages($connection, $totalPosts, $headerPath, $themeNo){
+            
+        $sql = "SELECT postid, image, description, short_description FROM posts";
+        $result = $connection->query($sql);
         //Collect all short descriptions.
         if ($result->num_rows > 0) {
         
@@ -414,9 +416,53 @@
                 //$image = $row["image"];
                 //$descriptionArray[$counter] = $row["short_description"];
                 
-                
-            }
-        }
+                $filename = "../posts/" . $row["postid"] . ".php";
+                $ourFileName =$filename;
+                $ourFileHandle = fopen($ourFileName, 'w') or die("cannot open this file");
+                $written = "";
+
+
+                switch($themeNo){
+
+                    case 1:
+
+
+                            break;
+
+                    case 2:
+
+
+                            break;
+
+                    case 3:
+
+                        $written = '
+
+                        <html>
+                            <head>
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+                                <link rel="stylesheet" type="text/css" href="assets/css/stylesheet3.css">
+                                <title>InstaBuilder</title>
+                            </head>
+                        <body>
+                            <h1>Test</h1>
+
+                        </body>
+                        </html>
+                        ';
+                            break;
+                    }
+
+
+
+                    fwrite($ourFileHandle,$written);
+
+                    fclose($ourFileHandle);
+
+
+                    }
+                }
         
         //Shorten descriptions further into titles.
         
