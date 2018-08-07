@@ -30,4 +30,30 @@
             return $longDescription . "...";
         }
     }
+
+    function createTitle($shortDescription){
+        
+        //Shorten the description further to be a suitable title.
+        if(strlen($shortDescription) > 15){
+            
+            $tempTitle = substr($shortDescription, 0, 15);
+            return $tempTitle . "...";
+        }else{
+
+            return $shortDescription . "...";
+        }
+    }
+    
+    function createURL($title){
+        
+        //Trim the size.
+        if(strlen($title) > 10){
+            
+            $tempURL = substr($title, 0, 10);
+        }
+        
+        //Replace the spaces with underscores.
+        $tempURL = str_replace(" ", "_", $tempURL);
+        return $tempURL;
+    }
 ?>

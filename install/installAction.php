@@ -13,6 +13,7 @@
     $database = $_POST['dbName'];
     $password = $_POST['dbPass'];
     $themeNo = 3;
+    $URLarray = array();
 
     // Create connection and select database.
     //$conn = new mysqli($servername, $username, $password);
@@ -91,12 +92,15 @@
 
 
     //Check how many entries in the Database were made.
-    $sql = "SELECT postid, image, description, short_description FROM posts";
+    $sql = "SELECT postid, image, description, short_description, title FROM posts";
     $result = $connection->query($sql);        
     $totalPosts = $result->num_rows;
 
     //Finally, generate HTML to build the desired site.
-    constructSite($totalPosts, $headerPath, $themeNo);
+    //constructSite($totalPosts, $headerPath, $themeNo);
+    constructSite($totalPosts, "", $themeNo);
+
+    //constructPosts($totalPosts, $headerPath, $themeNo);
 
     //Testing
     //testOutput($totalKeywords, $keywords, $keywordsArray);
@@ -227,6 +231,7 @@
                 $tempImage = scrapeImage($nodes, $i);
                 $tempDescription = scrapeDescription($nodes, $i);
                 $tempShortDescription = shortenDescription($tempDescription);
+                $tempTitle = createTitle($tempShortDescription);
                 $tempDate = scrapeDate($nodes, $i);
                 $tempPoster = scrapePoster($nodes, $i);
                 $tempSaveImage = file_get_contents($tempImage);
@@ -238,7 +243,7 @@
                 fclose($location);
 
                 //Add post details to database table.
-                $sqlSource = "INSERT INTO `Posts` (`image`, `description`, `short_description`, `postdate`, `postedby`) VALUES ('$filepath" . "$i.jpg', '$tempDescription', '$tempShortDescription', '$tempDate', '$tempPoster')";
+                $sqlSource = "INSERT INTO `Posts` (`image`, `description`, `short_description`, `postdate`, `postedby`, `title`) VALUES ('$filepath" . "$i.jpg', '$tempDescription', '$tempShortDescription', '$tempDate', '$tempPoster', '$tempTitle')";
 
                 if(mysqli_query($connection, $sqlSource)){
 
@@ -394,6 +399,32 @@
             fwrite($ourFileHandle,$written);
 
             fclose($ourFileHandle);
+    }
+
+    function constructPostPages($totalPosts, $headerPath, $themeNo){
+        
+        $tempDescription = "";
+        
+        //Collect all short descriptions.
+        if ($result->num_rows > 0) {
+        
+            while($row = $result->fetch_assoc()) {
+                //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+                //$description1 = $row["description"];
+                //$image = $row["image"];
+                //$descriptionArray[$counter] = $row["short_description"];
+                
+                
+            }
+        }
+        
+        //Shorten descriptions further into titles.
+        
+        //Replace spaces with underscores.
+        
+        //Prepare n post files with title as file names.
+        
+        //Write HTML template to each post.
     }
 
     function generateVarsCode($totalPosts, $themeNo){
