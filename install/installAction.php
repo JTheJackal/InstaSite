@@ -7,7 +7,7 @@
 
     require("../operations/stringOps.php");
 
-    $totalPosts = 4;
+    $totalPosts = 20;
     $servername = "localhost";
     $username = $_POST['dbUser'];
     $database = $_POST['dbName'];
@@ -98,9 +98,9 @@
 
     //Finally, generate HTML to build the desired site.
     //constructSite($totalPosts, $headerPath, $themeNo);
-    constructSite($totalPosts, "", $themeNo);
+    //constructSite($totalPosts, "", $themeNo);
 
-    constructPostPages($connection, $totalPosts, "", $themeNo);
+    constructPostPages($connection, $totalPosts, "", $themeNo, $keywords);
 
     //constructPosts($totalPosts, $headerPath, $themeNo);
 
@@ -264,13 +264,13 @@
         //var_dump($nodes);
     }
 
-    function constructSite($totalPosts, $headerPath, $themeNo){
+    function constructSite($totalPosts, $headerPath, $themeNo, $urlArray){
         
         
         $filename = "../operations/constructIndex.php";
         $ourFileName =$filename;
         $ourFileHandle = fopen($ourFileName, 'w');
-        $generatedVarCode = generateVarsCode($totalPosts, $themeNo);
+        $generatedVarCode = generateVarsCode($totalPosts, $themeNo, $urlArray);
         $generatedTiles = createTilesHTML($totalPosts, $themeNo);
         $profilePic = "../assets/uploads/avatar.jpg";
         $written = "";
@@ -403,27 +403,33 @@
             fclose($ourFileHandle);
     }
 
-    function constructPostPages($connection, $totalPosts, $headerPath, $themeNo){
+    function constructPostPages($connection, $totalPosts, $headerPath, $themeNo, $keywords){
             
-        $sql = "SELECT postid, image, description, short_description FROM posts";
+        $urlArray = array();
+        $sql = "SELECT postid, image, description, short_description, title FROM posts";
         $result = $connection->query($sql);
         //Collect all short descriptions.
         if ($result->num_rows > 0) {
         
             while($row = $result->fetch_assoc()) {
-                //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-                //$description1 = $row["description"];
-                //$image = $row["image"];
-                //$descriptionArray[$counter] = $row["short_description"];
+
+                //create a url from the post title and
+                //push it to the array.
+                $tempURL = createURL($row["title"], $row["postid"], $keywords);
+                array_push($urlArray, $tempURL);
                 
-                $filename = "../posts/" . $row["postid"] . ".php";
+                //prepare the name of the new file to create, using the newly generated url.
+                $filename = "../posts/" . $tempURL . ".php";
                 $ourFileName =$filename;
+                //Create the file.
                 $ourFileHandle = fopen($ourFileName, 'w') or die("cannot open this file");
                 $written = "";
 
 
                 switch($themeNo){
 
+                    //Construct the HTML based on the theme selected.
+                        
                     case 1:
 
 
@@ -459,21 +465,16 @@
                     fwrite($ourFileHandle,$written);
 
                     fclose($ourFileHandle);
-
+                        
 
                     }
                 }
         
-        //Shorten descriptions further into titles.
-        
-        //Replace spaces with underscores.
-        
-        //Prepare n post files with title as file names.
-        
-        //Write HTML template to each post.
+        //Construct the index page. Pass the array of post url's in for linking.
+        constructSite($totalPosts, "", $themeNo, $urlArray);
     }
 
-    function generateVarsCode($totalPosts, $themeNo){
+    function generateVarsCode($totalPosts, $themeNo, $urlArray){
         
         $tempVars = "";
         
@@ -539,7 +540,7 @@
                             <p1>$descriptionArray[0]</p1>
                             </div>
                         </div>
-                        <div class=\'tileCover\' onclick=\'window.location=\"https://www.google.com\"\'>
+                        <div class=\'tileCover\' onclick=\'window.location=\"posts/' . $urlArray[$i] . '.php\"\'>
                         </div>";';
                     }else{
 
@@ -550,12 +551,11 @@
                         <p1>$descriptionArray['.$i.']</p1>
                         </div>
                     </div>
-                    <div class=\'tileCover\' onclick=\'window.location=\"https://www.google.com\"\'>
+                    <div class=\'tileCover\' onclick=\'window.location=\"posts/' . $urlArray[$i] . '.php\"\'>
                     </div>";';
                     }
                     break;
             }
-            
         }
         
         return $tempVars;

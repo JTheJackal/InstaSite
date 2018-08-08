@@ -44,16 +44,42 @@
         }
     }
     
-    function createURL($title){
+    function createURL($title, $postID, $keywords){
+        
+        //Ensure the title is UTF-8 encoded.
+        if(!mb_detect_encoding($title, 'UTF-8', true)){
+            
+            echo "URL is not UTF-8: " . $title;
+            $title = mb_convert_encoding($title, "UTF-8");
+                       
+        }
         
         //Trim the size.
         if(strlen($title) > 10){
-            
-            $tempURL = substr($title, 0, 10);
+
+            $tempURL = substr($title, 0, 15);
         }
+
+        //Remove the dots.
+        //$tempURL = str_replace(".", "", $tempURL);
         
+        //Remove the hash tags.
+        //$tempURL = str_replace("#", "", $tempURL);
+        
+        //Remove the question marks.
+        //$tempURL = str_replace("?", "", $tempURL);
+        
+        //Remove anything that isn't characters A-Z, a-z or 0-9
+        $tempURL = preg_replace('/[^A-Za-z0-9\-]/', '', $tempURL);
+        
+        if($tempURL == ""){
+            
+            $tempURL = "" . $keywords . $postID . "-post";
+        }
+
         //Replace the spaces with underscores.
-        $tempURL = str_replace(" ", "_", $tempURL);
+        $tempURL = preg_replace('/\s+/', '-', $tempURL);
+
         return $tempURL;
     }
 ?>
