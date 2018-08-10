@@ -431,6 +431,8 @@
     
     .pageContainer {
         
+        padding: 0;
+        margin: 0;
         position: relative;
         height: 100%;
     }
@@ -630,10 +632,92 @@
     
     .content {
         
-        padding: 2%;
+        position: relative;
+        padding: 1%;
         margin: 0;
-        background-color: #1d1d1d;
+        background-color: #131418;
+        height: 100%;
+    }
+    
+    .titleBox {
+        
+        width: 100%;
+        height: 10%;
+        padding: 1%;
+        position: relative;
+        float: left;
+        background-color: #2d3436;
+
+    }
+    
+    .middleContainer {
+        
+        width: 100%;
+        height: 65%;
+        position: relative;
+        float: left;
+        padding-top: 0.5%;
+        background-color: #1e272e;
+    }
+    
+    .featuredIMG {
+        
+        
+        padding-top: 1%;
         width: 100%;
         height: 100%;
+        position: relative;
+        float: left;
+        padding: 0;
+        background-size: contain;
+    }
+    
+    .sideColumn {
+        
+        background-color: #131418;
+        height: 100%;
+        position: relative;
+        float: right;
+        padding: 6% 1% 0 1%;
+        margin: 0;
+    }
+    
+    .buttonsContainer {
+        
+        width: 100%;
+        height: 30%;
+        position: relative;
+        margin-bottom: 4.5%;
+        background-color: #2d3436;
+    }
+    
+    .bottomContainer {
+           
+        padding-top: 0.5%;
+        width: 100%;
+        height: 20%;
+        position: relative;
+        float: left;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #1e272e;
+    }
+    
+    .descriptionContainer {
+        
+        width: 100%;
+        height: 100%;
+        position: relative;
+        float: left;
+        background-color: #2d3436;
+
+    }
+    
+    .tagsContainer {
+        
+        width: 100%;
+        height: 60%;
+        position: relative;
+        background-color: #1e272e;
     }
 }

@@ -7,7 +7,7 @@
                             <p1>$descriptionArray[0]</p1>
                             </div>
                         </div>
-                        <div class='tileCover' onclick='window.location=\"posts/fashion1-post.php\"'>
+                        <div class='tileCover' onclick='window.location=\"posts/Launchinginto.php\"'>
                         </div>";$tile1 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[1]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -15,7 +15,7 @@
                         <p1>$descriptionArray[1]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/fashion2-post.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Notonebutt.php\"'>
                     </div>";$tile2 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[2]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -23,7 +23,7 @@
                         <p1>$descriptionArray[2]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/celso155div.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/FRONT-EN.php\"'>
                     </div>";$tile3 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[3]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -31,7 +31,7 @@
                         <p1>$descriptionArray[3]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/Hotchick.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Depressionorl.php\"'>
                     </div>";$tile4 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[4]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -39,7 +39,7 @@
                         <p1>$descriptionArray[4]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/TBMyphotograp.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/WheelWednesday.php\"'>
                     </div>";$tile5 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[5]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -47,7 +47,7 @@
                         <p1>$descriptionArray[5]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/PAISPromo.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Chevrolet.php\"'>
                     </div>";$tile6 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[6]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -55,7 +55,7 @@
                         <p1>$descriptionArray[6]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/no.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Whynotmine.php\"'>
                     </div>";$tile7 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[7]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -63,7 +63,7 @@
                         <p1>$descriptionArray[7]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/RainHailor.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Wou.php\"'>
                     </div>";$tile8 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[8]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -71,7 +71,7 @@
                         <p1>$descriptionArray[8]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/4509-0008-.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Otheraccounts.php\"'>
                     </div>";$tile9 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[9]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -79,7 +79,7 @@
                         <p1>$descriptionArray[9]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/Thishasbeens.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/EriizoeviiEr.php\"'>
                     </div>";$tile10 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[10]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -87,7 +87,7 @@
                         <p1>$descriptionArray[10]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/Essatshirtt.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/idekhowifoun.php\"'>
                     </div>";$tile11 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[11]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -95,7 +95,7 @@
                         <p1>$descriptionArray[11]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/fashion12-post.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Outontheseni.php\"'>
                     </div>";$tile12 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[12]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -103,7 +103,7 @@
                         <p1>$descriptionArray[12]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/fashion13-post.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/CleanCivicTAG.php\"'>
                     </div>";$tile13 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[13]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -111,7 +111,7 @@
                         <p1>$descriptionArray[13]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/internationalc.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Supercommercia.php\"'>
                     </div>";$tile14 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[14]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -119,7 +119,7 @@
                         <p1>$descriptionArray[14]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/Whenlifegives.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/FRONT-EN.php\"'>
                     </div>";$tile15 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[15]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -127,7 +127,7 @@
                         <p1>$descriptionArray[15]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/fashion16-post.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Nuestra.php\"'>
                     </div>";$tile16 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[16]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -135,7 +135,7 @@
                         <p1>$descriptionArray[16]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/Everythingcome.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/FerrariItaly.php\"'>
                     </div>";$tile17 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[17]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -143,7 +143,7 @@
                         <p1>$descriptionArray[17]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/Whenyourdress.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Notonebutt.php\"'>
                     </div>";$tile18 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[18]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -151,7 +151,7 @@
                         <p1>$descriptionArray[18]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/Alittlemore.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/mustlecarhar.php\"'>
                     </div>";$tile19 = "<div class='imgholder'>
                         <img class='aspectIMG' src='$imageArray[19]' width='100%' height='100%' />
                         <div class='textBox'>
@@ -159,7 +159,7 @@
                         <p1>$descriptionArray[19]</p1>
                         </div>
                     </div>
-                    <div class='tileCover' onclick='window.location=\"posts/fashion20-post.php\"'>
+                    <div class='tileCover' onclick='window.location=\"posts/Venanuestraa.php\"'>
                     </div>";
 
                 $index = '<div class="col-12 pageContainer">

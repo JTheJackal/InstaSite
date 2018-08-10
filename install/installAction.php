@@ -443,24 +443,44 @@
                     case 3:
 
                         $written = '
-
+                        
                         <html>
                             <head>
                                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                                 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
-                                <link rel="stylesheet" type="text/css" href="assets/css/stylesheet3.css">
-                                <title>InstaBuilder</title>
+                                <link rel="stylesheet" type="text/css" href="../assets/css/stylesheet3.css">
+
+                                <title>' . $row["title"] . '</title>
                             </head>
-                        <body>
-                            <h1>Test</h1>
+                            <body>
+                                <div class="col-12 postPageContainer">
+                                    <div class="col-9 content">
 
-                        </body>
+                                        <div class="titleBox"><postTitle>' . $row["title"] . '</postTitle></div>
+                                        <div class="middleContainer">
+                                            <div class="featuredIMG" style="background-image: URL(' . $row["image"] . '); background-repeat: no-repeat">
+                                            </div>
+                                        </div>
+                                        <div class="bottomContainer">
+                                            <div class="descriptionContainer">
+                                                <p>' . $row["description"] . '</p>
+                                            </div>              
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3 sideColumn">
+                                        <div class="buttonsContainer"></div>
+                                        <div class="tagsContainer"></div>
+                                    </div>
+
+                                </div>
+                            </body>
                         </html>
+                        
+
                         ';
-                            break;
+                        break;
                     }
-
-
 
                     fwrite($ourFileHandle,$written);
 
