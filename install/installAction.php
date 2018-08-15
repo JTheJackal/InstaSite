@@ -406,6 +406,8 @@
     function constructPostPages($connection, $totalPosts, $headerPath, $themeNo, $keywords){
             
         $urlArray = array();
+        $tagsArray = array();
+        
         $sql = "SELECT postid, image, description, short_description, title FROM posts";
         $result = $connection->query($sql);
         //Collect all short descriptions.
@@ -424,6 +426,8 @@
                 //Create the file.
                 $ourFileHandle = fopen($ourFileName, 'w') or die("cannot open this file");
                 $written = "";
+                
+                $tempTagsBox = createTagsHTML($row["description"]);
 
 
                 switch($themeNo){
@@ -435,8 +439,7 @@
 
                             break;
 
-                    case 2:
-
+                    case 2:                
 
                             break;
 
@@ -447,38 +450,46 @@
                         <html>
                             <head>
                                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+                                <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
                                 <link rel="stylesheet" type="text/css" href="../assets/css/stylesheet3.css">
 
                                 <title>' . $row["title"] . '</title>
                             </head>
                             <body>
-                                <div class="col-12 postPageContainer">
-                                    <div class="col-9 content">
+                                <div class="postPageContainer">
+                                    <div class="col-3 sideColumn">
+                                        <div class="buttonsContainer"></div>
+                                        <div class="tagsTitle">
+                                        <postText>Tags</postText></div>
+                                        <div class="tagsContainer"><p></div>
+                                    </div>
+                                    
+                                    <div class="col-6 middleContainer">
 
-                                        <div class="titleBox"><postTitle>' . $row["title"] . '</postTitle></div>
-                                        <div class="middleContainer">
+                                        <div class="titleBox">  <postText>' . $row["title"] . '</postText>
+                                        </div>
+                                        
+                                        <div class="featuredIMGBox">
                                             <div class="featuredIMG" style="background-image: URL(' . $row["image"] . '); background-repeat: no-repeat">
                                             </div>
                                         </div>
-                                        <div class="bottomContainer">
-                                            <div class="descriptionContainer">
-                                                <p>' . $row["description"] . '</p>
-                                            </div>              
+                                        
+                                        <div class="lowerBox"></div>
+                                    </div>
+                                    
+                                    <div class="col-3 sideColumn2">
+
+                                        <div class="descripTitle">
+                                            <postText></postText>
                                         </div>
+                                        
+                                        <div class="descriptionContainer">
+                                                <p>' . $row["description"] . '</p>
+                                            </div>
                                     </div>
-
-                                    <div class="col-3 sideColumn">
-                                        <div class="buttonsContainer"></div>
-                                        <div class="tagsContainer"></div>
-                                    </div>
-
                                 </div>
                             </body>
-                        </html>
-                        
-
-                        ';
+                        </html>';
                         break;
                     }
 
@@ -539,11 +550,11 @@
                         </div>";';
                     }else{
 
-                        $tempVars = $tempVars . '$tile'.$i.' = "<div class=\'imgholder\'>
-                            <img class=\'aspectIMG\' src=\'$imageArray['.$i.']\' width=\'100%\' height=\'100%\' />
+                        $tempVars = $tempVars . '$tile' . $i . ' = "<div class=\'imgholder\'>
+                            <img class=\'aspectIMG\' src=\'$imageArray[' . $i . ']\' width=\'100%\' height=\'100%\' />
                             <div class=\'textBox\'>
                             <br>
-                            <p1>$descriptionArray['.$i.']</p1>
+                            <p1>$descriptionArray[' . $i . ']</p1>
                             </div>
                         </div>";';
                     }
@@ -708,6 +719,25 @@
         
         //Search for how many instances of # are used.
         return substr_count($keywords, "#");
+    }
+
+    function createTagsHTML($description){
+        
+        //Make sure the description isn't empty.
+        if(strlen($description) < 1){
+            
+            return '<div class="tagBubble">
+                        <tag>#Cars</tag>
+                    </div>';
+        }else{
+            
+            return '<div class="tagBubble">
+                        <tag>#Cars</tag>
+                    </div>
+                    <div class="tagBubble">
+                        <tag>#AnotherTag</tag>
+                    </div>';
+        }
     }
 ?>
 

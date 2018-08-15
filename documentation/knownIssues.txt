@@ -1,0 +1,11 @@
+1. A slow internet connection can cause issues of varying degree during the install process. The most minor issue will be lost post details during the scrape process whilst at it's worst, the scraper will fail to initialise due to Instagram refusing the slow connection.
+
+2. Various features in the installer have yet to be made functional.
+
+3. Responsiveness needs tweaking to work correctly across all devices.
+
+4. Preview image tiles are not preserving the aspect ratio of images.
+
+5. Short descriptions are not yet positioned correctly in the preview tiles.
+
+6. Log in system has yet to be implemented.
