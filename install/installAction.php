@@ -7,6 +7,10 @@
 
     require("../operations/stringOps.php");
 
+
+    //Set the maximum allowed execution time for this script.
+    ini_set('max_execution_time', 120);
+
     $totalPosts = 20;
     $servername = "localhost";
     $username = $_POST['dbUser'];
@@ -33,7 +37,7 @@
     if ($connection->connect_error) {
         die("Connection failed: " . $connection->connect_error);
     }else{
-        echo "Connected successfully";
+        //echo "Connected successfully";
         writeFile($username, $password, $database);
     }
 
@@ -161,7 +165,7 @@
         // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["headerUpload"]["tmp_name"], $target_file)) {
-                echo "The file ". basename( $_FILES["headerUpload"]["name"]). " has been uploaded.";
+                //echo "The file ". basename( $_FILES["headerUpload"]["name"]). " has been uploaded.";
                 return $target_file;
             } else {
                 echo "Sorry, there was an error uploading your file.";
@@ -222,13 +226,20 @@
         
         require('../operations/scrape.php');
         
+        /*
         //Run through each keyword in the array and scrape Instagram for it.
         for($j = 0; $j < sizeof($keywordsArray); $j++){
             
             $nodes = accessNodes($keywordsArray[$j]);
         
+            //While condition is true
             for($i = 0; $i < $desiredNumPosts; $i++){
 
+                //If counter < desired{
+                
+                //else{
+                //counter++;
+                
                 //Retrieve info from the nodes
                 $tempImage = scrapeImage($nodes, $i);
                 $tempDescription = scrapeDescription($nodes, $i);
@@ -257,6 +268,66 @@
                     //Failed because of the description. Try posting without.
                     $sqlSource = "INSERT INTO `Posts` (`image`, `postdate`, `postedby`) VALUES ('$filepath" . "$i.jpg', '$tempDate', '$tempPoster')";
                 }
+            }
+        }
+        */
+        
+        $i = 0;
+        $counter = 0;
+        
+        //Run through each keyword in the array and scrape Instagram for it.
+        for($j = 0; $j < sizeof($keywordsArray); $j++){
+            
+            $nodes = accessNodes($keywordsArray[$j]);
+        
+            //Run through every post collected for the keyword and discard if the description is too small.
+            while($counter < $desiredNumPosts && $i < sizeof($nodes)){
+            //for($i = 0; $i < $desiredNumPosts; $i++){
+
+                //If counter < desired{
+                
+                //else{
+                //counter++;
+                
+                //Retrieve info from the nodes
+                $tempImage = scrapeImage($nodes, $i);
+                $tempDescription = scrapeDescription($nodes, $i);
+                
+                //list($width, $height) = getimagesize($tempImage);
+                
+                //Ensure the description is more than 150 characters long, and that the image is horizontal.
+                if(strlen($tempDescription) > 150 && getimagesize($tempImage)[0] > getimagesize($tempImage)[1]){
+                    
+                    //increment counter
+                    $counter++;
+                    $tempShortDescription = shortenDescription($tempDescription);
+                    $tempTitle = createTitle($tempShortDescription);
+                    $tempDate = scrapeDate($nodes, $i);
+                    $tempPoster = scrapePoster($nodes, $i);
+                    $tempSaveImage = file_get_contents($tempImage);
+
+                    //Store the image locally in case the URL should ever change
+                    $filepath = "../assets/uploads/image";
+                    $location = fopen($filepath . $i . ".jpg", "w");
+                    fwrite($location, $tempSaveImage);
+                    fclose($location);
+
+                    //Add post details to database table.
+                    $sqlSource = "INSERT INTO `Posts` (`image`, `description`, `short_description`, `postdate`, `postedby`, `title`) VALUES ('$filepath" . "$i.jpg', '$tempDescription', '$tempShortDescription', '$tempDate', '$tempPoster', '$tempTitle')";
+
+                    if(mysqli_query($connection, $sqlSource)){
+
+                        //echo "New record created successfully";
+                    }else{
+
+                        echo "Error creating post: " . $connection->error;
+
+                        //Failed because of the description. Try posting without.
+                        $sqlSource = "INSERT INTO `Posts` (`image`, `postdate`, `postedby`) VALUES ('$filepath" . "$i.jpg', '$tempDate', '$tempPoster')";
+                    }
+                }
+                
+                $i++;
             }
         }
         
@@ -406,7 +477,6 @@
     function constructPostPages($connection, $totalPosts, $headerPath, $themeNo, $keywords){
             
         $urlArray = array();
-        $tagsArray = array();
         
         $sql = "SELECT postid, image, description, short_description, title FROM posts";
         $result = $connection->query($sql);
@@ -461,7 +531,7 @@
                                         <div class="buttonsContainer"></div>
                                         <div class="tagsTitle">
                                         <postText>Tags</postText></div>
-                                        <div class="tagsContainer"><p></div>
+                                        <div class="tagsContainer">' . $tempTagsBox . '</div>
                                     </div>
                                     
                                     <div class="col-6 middleContainer">
@@ -723,6 +793,13 @@
 
     function createTagsHTML($description){
         
+        
+        $tagsArray = array();
+        $tagsHTML = '';
+        
+        //parse hashtags out of the string
+        $tagsArray = extractHashtags($description); 
+        
         //Make sure the description isn't empty.
         if(strlen($description) < 1){
             
@@ -731,12 +808,13 @@
                     </div>';
         }else{
             
-            return '<div class="tagBubble">
-                        <tag>#Cars</tag>
-                    </div>
-                    <div class="tagBubble">
-                        <tag>#AnotherTag</tag>
-                    </div>';
+            for($i = 0; $i < sizeof($tagsArray[0]); $i++){
+                
+                $tagsHTML = $tagsHTML . '<div class="tagBubble">
+                                            <tag>' . $tagsArray[0][$i] . '</tag>
+                                        </div>';
+            }
+            return $tagsHTML;
         }
     }
 ?>

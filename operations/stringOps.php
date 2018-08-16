@@ -13,6 +13,16 @@
         return str_replace("str", "", "#" . $removeStr . " ");
     }
 
+    function extractHashtags($str){
+        
+        //Regular expression, as found on https://stackoverflow.com/questions/3060601/retrieve-all-hashtags-from-a-tweet-in-a-php-function, Stores all occurences of hashtags in a given string.
+        preg_match_all('/#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/u', $str, $hashtags);
+        
+        var_dump($hashtags);
+        
+        return $hashtags;
+    }
+
     function removeString ($string, $search){
         
         //Remove nothing except the desired string.
@@ -34,9 +44,9 @@
     function createTitle($shortDescription){
         
         //Shorten the description further to be a suitable title.
-        if(strlen($shortDescription) > 15){
+        if(strlen($shortDescription) > 25){
             
-            $tempTitle = substr($shortDescription, 0, 15);
+            $tempTitle = substr($shortDescription, 0, 25);
             return $tempTitle . "...";
         }else{
 
