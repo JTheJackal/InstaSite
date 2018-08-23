@@ -18,7 +18,7 @@
         //Regular expression, as found on https://stackoverflow.com/questions/3060601/retrieve-all-hashtags-from-a-tweet-in-a-php-function, Stores all occurences of hashtags in a given string.
         preg_match_all('/#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/u', $str, $hashtags);
         
-        var_dump($hashtags);
+        //var_dump($hashtags);
         
         return $hashtags;
     }

@@ -8,10 +8,14 @@
     require("../operations/stringOps.php");
 
 
-    //Set the maximum allowed execution time for this script.
-    ini_set('max_execution_time', 120);
+    //Set the maximum allowed execution time for this script. 8 minutes currently.
+    ini_set('max_execution_time', 480);
 
-    $totalPosts = 20;
+    //Continually changing the max_id for the instagram API call will allow the scraper to use as many result as we like instead of just the first batch.
+    $maxID = "";
+    $totalPosts = 10;
+    $foundPosts = 0;
+    $failsafe = 500;
     $servername = "localhost";
     $username = $_POST['dbUser'];
     $database = $_POST['dbName'];
@@ -92,7 +96,11 @@
 
     //$header = validateImageFile();
 
-    scrapeKeywords($totalPosts, $keywordsArray, $connection);
+    while($foundPosts < $totalPosts){
+        
+        scrapeKeywords($totalPosts, $keywordsArray, $connection);
+        $failsafe++;
+    }
 
 
     //Check how many entries in the Database were made.
@@ -105,7 +113,6 @@
     //constructSite($totalPosts, "", $themeNo);
 
     constructPostPages($connection, $totalPosts, "", $themeNo, $keywords);
-
     //constructPosts($totalPosts, $headerPath, $themeNo);
 
     //Testing
@@ -196,7 +203,7 @@
         
         //Create required tables in the Database.
         if (mysqli_query($connection, $sqlSource)) {
-            echo "Tables created successfully";
+            //echo "Tables created successfully";
         } else {
             echo "Error creating tables: " . $connection->error;
         }
@@ -224,7 +231,7 @@
 
     function scrapeKeywords($desiredNumPosts, $keywordsArray, $connection){
         
-        require('../operations/scrape.php');
+        require_once('../operations/scrape.php');
         
         /*
         //Run through each keyword in the array and scrape Instagram for it.
@@ -274,11 +281,17 @@
         
         $i = 0;
         $counter = 0;
+        $nodes = null;
+        global $foundPosts;
         
         //Run through each keyword in the array and scrape Instagram for it.
         for($j = 0; $j < sizeof($keywordsArray); $j++){
             
             $nodes = accessNodes($keywordsArray[$j]);
+            
+            //echo "NUMBER OF NODES______";
+            //echo sizeof($nodes);
+            //echo "NUMBER OF NODS_____";
         
             //Run through every post collected for the keyword and discard if the description is too small.
             while($counter < $desiredNumPosts && $i < sizeof($nodes)){
@@ -290,6 +303,7 @@
                 //counter++;
                 
                 //Retrieve info from the nodes
+                //$tempImage = scrapeImage($nodes, $i);
                 $tempImage = scrapeImage($nodes, $i);
                 $tempDescription = scrapeDescription($nodes, $i);
                 
@@ -299,21 +313,24 @@
                 if(strlen($tempDescription) > 150 && getimagesize($tempImage)[0] > getimagesize($tempImage)[1]){
                     
                     //increment counter
+                    $foundPosts++;
                     $counter++;
                     $tempShortDescription = shortenDescription($tempDescription);
                     $tempTitle = createTitle($tempShortDescription);
                     $tempDate = scrapeDate($nodes, $i);
                     $tempPoster = scrapePoster($nodes, $i);
+                    $source = scrapeSource($nodes, $i);
+                    $likes = scrapeLikes($nodes, $i);
                     $tempSaveImage = file_get_contents($tempImage);
 
                     //Store the image locally in case the URL should ever change
                     $filepath = "../assets/uploads/image";
-                    $location = fopen($filepath . $i . ".jpg", "w");
+                    $location = fopen($filepath . $foundPosts . ".jpg", "w");
                     fwrite($location, $tempSaveImage);
                     fclose($location);
 
                     //Add post details to database table.
-                    $sqlSource = "INSERT INTO `Posts` (`image`, `description`, `short_description`, `postdate`, `postedby`, `title`) VALUES ('$filepath" . "$i.jpg', '$tempDescription', '$tempShortDescription', '$tempDate', '$tempPoster', '$tempTitle')";
+                    $sqlSource = "INSERT INTO `Posts` (`image`, `description`, `short_description`, `postdate`, `postedby`, `likes`, `title`, `source`) VALUES ('$filepath" . "$foundPosts.jpg', '$tempDescription', '$tempShortDescription', '$tempDate', '$tempPoster', '$likes', '$tempTitle', '$source')";
 
                     if(mysqli_query($connection, $sqlSource)){
 
@@ -337,7 +354,6 @@
 
     function constructSite($totalPosts, $headerPath, $themeNo, $urlArray){
         
-        
         $filename = "../operations/constructIndex.php";
         $ourFileName =$filename;
         $ourFileHandle = fopen($ourFileName, 'w');
@@ -345,7 +361,6 @@
         $generatedTiles = createTilesHTML($totalPosts, $themeNo);
         $profilePic = "../assets/uploads/avatar.jpg";
         $written = "";
-
         
         switch($themeNo){
                 
@@ -466,7 +481,6 @@
                     ?>';
                     break;
         }
-
         
 
             fwrite($ourFileHandle,$written);
@@ -478,8 +492,9 @@
             
         $urlArray = array();
         
-        $sql = "SELECT postid, image, description, short_description, title FROM posts";
+        $sql = "SELECT postid, image, description, short_description, postdate, likes, title, source FROM posts";
         $result = $connection->query($sql);
+        
         //Collect all short descriptions.
         if ($result->num_rows > 0) {
         
@@ -490,12 +505,18 @@
                 $tempURL = createURL($row["title"], $row["postid"], $keywords);
                 array_push($urlArray, $tempURL);
                 
+                //The post date is in milliseconds from Jan 1 1970, so calculate how old the post is.
+                $tempDate = $row["postdate"];
+                $tempDate = date('M j, Y', $tempDate);
+                
                 //prepare the name of the new file to create, using the newly generated url.
                 $filename = "../posts/" . $tempURL . ".php";
-                $ourFileName =$filename;
+                $ourFileName = $filename;
                 //Create the file.
                 $ourFileHandle = fopen($ourFileName, 'w') or die("cannot open this file");
                 $written = "";
+                
+                $likes = $row["likes"];
                 
                 $tempTagsBox = createTagsHTML($row["description"]);
 
@@ -506,13 +527,10 @@
                         
                     case 1:
 
-
                             break;
-
                     case 2:                
 
                             break;
-
                     case 3:
 
                         $written = '
@@ -528,7 +546,32 @@
                             <body>
                                 <div class="postPageContainer">
                                     <div class="col-3 sideColumn">
-                                        <div class="buttonsContainer"></div>
+                                        <div class="buttonsContainer">
+                                            <div class="info">
+                                                <div class="infoProfile">
+                                                    <p3>Posted:</p3>
+                                                </div>
+                                                <div class="infoAdditional"><p>' . $tempDate . '</p></div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="infoProfile">
+                                                    <p3>Posted:</p3>
+                                                </div>
+                                                <div class="infoAdditional"><p>' . $tempDate . '</p></div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="infoProfile">
+                                                    <p3>Likes: </p3>
+                                                </div>
+                                                <div class="infoAdditional"><p>' . $likes . '</p></div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="infoProfile">
+                                                    <p3>Source:</p3>
+                                                </div>
+                                                <div class="infoAdditional"><p><a href="' . $row["source"] . '">Instagram.com</a></p></div>
+                                            </div> 
+                                        </div>
                                         <div class="tagsTitle">
                                         <postText>Tags</postText></div>
                                         <div class="tagsContainer">' . $tempTagsBox . '</div>
@@ -550,7 +593,7 @@
                                     <div class="col-3 sideColumn2">
 
                                         <div class="descripTitle">
-                                            <postText></postText>
+                                            <postText>Description</postText>
                                         </div>
                                         
                                         <div class="descriptionContainer">
@@ -773,15 +816,15 @@
         
         if($total > 0){
             
-            echo "\n Total keywords: $total \n";
+            //echo "\n Total keywords: $total \n";
             
             for($i = 0; $i < count($output); $i++){
 
-                echo "Array $i $output[$i]";
+                //echo "Array $i $output[$i]";
             }
         }else{
             
-            echo "No keywords were entered. Imploding now";
+            //echo "No keywords were entered. Imploding now";
         }
     }
 
@@ -793,12 +836,35 @@
 
     function createTagsHTML($description){
         
-        
+        global $keywordsArray;
         $tagsArray = array();
         $tagsHTML = '';
         
         //parse hashtags out of the string
-        $tagsArray = extractHashtags($description); 
+        $tempTagsArray = extractHashtags($description); 
+        $tagsArray = array();
+        
+        for($i = 0; $i < sizeof($tempTagsArray[0]); $i++){  
+            
+            if(strlen($tempTagsArray[0][$i]) < 16){
+                
+                echo "The string being added is: " . $tempTagsArray[0][$i];
+                array_push($tagsArray, $tempTagsArray[0][$i]);
+            }
+        }
+        
+        //Keep only 15 tags in the array.
+        $tagsArray = array_slice($tagsArray, 0, 15);
+        
+        if(sizeof($tagsArray) < 1){
+            
+            for($i = 0; $i < sizeof($keywordsArray); $i++){
+                
+                array_push($tagsArray, $keywordsArray);
+            }
+        }
+        
+        //$tagsArray = array_slice($tagsArray, 0, 20);
         
         //Make sure the description isn't empty.
         if(strlen($description) < 1){
@@ -808,10 +874,14 @@
                     </div>';
         }else{
             
-            for($i = 0; $i < sizeof($tagsArray[0]); $i++){
+            //for($i = 0; $i < sizeof($tagsArray[0]); $i++){
+            for($i = 0; $i < sizeof($tagsArray); $i++){
                 
-                $tagsHTML = $tagsHTML . '<div class="tagBubble">
+                /*$tagsHTML = $tagsHTML . '<div class="tagBubble">
                                             <tag>' . $tagsArray[0][$i] . '</tag>
+                                        </div>';*/
+                 $tagsHTML = $tagsHTML . '<div class="tagBubble">
+                                            <tag>' . $tagsArray[$i] . '</tag>
                                         </div>';
             }
             return $tagsHTML;
