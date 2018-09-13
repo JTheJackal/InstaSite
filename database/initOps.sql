@@ -19,5 +19,6 @@ CREATE TABLE IF NOT EXISTS Posts (
     `displayname` VARCHAR(50) NULL DEFAULT '',
     `username` VARCHAR(50) NULL DEFAULT '',
     `password` VARCHAR(50) NULL DEFAULT '',
+    `bio` VARCHAR(500) NULL DEFAULT '',
     PRIMARY KEY (id)
 )COLLATE='utf8_bin';

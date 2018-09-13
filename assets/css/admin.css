@@ -173,13 +173,24 @@
         padding: 0;
     }
     
-    .uploadRow {
+    .avatarRow {
         
         position: relative;
-        height: 5%;
+        height: 25%;
         width: 100%;
         margin: 0;
         padding: 0;
+        float: left;
+    }
+    
+    .uploadRow {
+        
+        position: relative;
+        height: 10%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        float: left;
     }
     
     .profilePic {
@@ -187,7 +198,7 @@
         position: relative;
         float: left;
         width: 20%;
-        padding-bottom: 15%;
+        padding-bottom: 20%;
         background-color: white;
         margin: 0;
     }
@@ -266,9 +277,36 @@
         float: left;
         background-color: #e55039;
         margin-left: 2%;
-        border: none;
+        border: 1px solid #b53009;
         width: 3%;
         height: 100%;
+        padding: 0;
+        font-size: 0.75em;
+        font-weight: bold;        
+    }
+    
+    .deleteAllBTN {
+        
+        position: relative;
+        float: left;
+        background-color: #e55039;
+        border: 1px solid #b53009;
+        width: 70%;
+        height: 100%;
+        padding: 0;
+        font-size: 0.75em;
+        font-weight: bold;        
+    }
+    
+    .saveAllBTN {
+        
+        position: relative;
+        float: right;
+        background-color: #A3CB38;
+        border: 1px solid #418825;
+        width: 10%;
+        height: 100%;
+        margin-right: 3%;
         padding: 0;
         font-size: 0.75em;
         font-weight: bold;        
@@ -334,8 +372,25 @@
     .avatarPrev {
         
         width: 25%;
-        height: 100%;
+        padding-bottom: 25%;
         position: relative;
         float: left;
+    }
+    
+    .warningCol {
+        
+        position: relative;
+        float: right;
+        width: 10%;
+        height: 100%;
+    }
+    
+    .warningBTNCol {
+        
+        position: relative;
+        float: right;
+        width: 10%;
+        height: 100%;
+        margin-left: 2%;
     }
 }

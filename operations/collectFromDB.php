@@ -51,11 +51,14 @@
 
     function getTable(){
         
+        include("../operations/stringOps.php");
+        
         global $postResult;
         global $imagesArray;
         global $descriptionsArray;
         
-        $html = '<form action="../operations/removeFromDB.php" method="post">';
+        //$html = '<form action="../operations/removeFromDB.php" method="post">';
+        $html = '';
         
         if ($postResult->num_rows > 0) {
         // output data of each row
@@ -69,14 +72,16 @@
         
         for($i = 0; $i < sizeof($imagesArray); $i++){
         
+            $tempDescription = removeQuotes($descriptionsArray[$i]);
+            
             $html = $html . '<div class="tableRow">
                         <input type="text" class="imageBox" value="' . $imagesArray[$i] . '" name="imageBox' . $i . '"/>
-                        <input type="text" class="descriptionBox" value="' . $descriptionsArray[$i] . '" />
-                        <input type="submit" class="deleteBTN" value="x" name="row'.$i.'" /> 
+                        <input type="text" class="descriptionBox" value="' . $tempDescription . '" name="descriptionBox' . $i . '" />
+                        <input type="submit" class="deleteBTN" value="x" name="row' . $i . '" /> 
                     </div>';
         }
         
-        $html = $html . '</form>';
+        //$html = $html . '</form>';
         return $html;
     }
 ?>

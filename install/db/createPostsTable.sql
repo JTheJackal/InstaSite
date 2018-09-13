@@ -4,6 +4,7 @@
 
 CREATE TABLE Posts (
     `postid` INT NOT NULL AUTO_INCREMENT,
+    `post` VARCHAR(150) NULL DEFAULT '',
     `image` VARCHAR(600) NULL DEFAULT '',
     `description` VARCHAR(700) NULL DEFAULT '',
     `short_description` VARCHAR(100) NULL DEFAULT '',

@@ -20,46 +20,68 @@
         </div>
         
         <div class="col-12">
-            <div class="userPanel adminBlue">
-                <div class="contentRow">
+            <div class="postsPanel adminBlue">
+                <div class="avatarRow">
                     <img src="../assets/uploads/avatar.jpg" class="avatarPrev" />
                 </div>
                 <div class="uploadRow">
                     <input type="button" class="uploadBTN" value="Upload" /> 
                 </div>
                 <br />
+                <br />
+                <hr />
+                
                 <div class="titleRow">
                     <p>About Section:</p>
                 </div>
                 <div class="contentRow">
-                    <textarea rows="15" cols="50" class="bioBox">
+                    <textarea rows="15" cols="50" class="bioBox" name="userBio">
                         <?php 
                             include "../operations/collectFromDB.php";
                         
                             //echo getBio();
                         ?>
                     </textarea>
-                    <input type="submit" class="submitBTN" value="Save All"/> 
+                </div>
+                
+                <div class="tableRow">
+                    <input type="submit" class="saveAllBTN" value="Save Changes" name="saveUser"/>
+                    <?php
+                        include "../operations/saveChanges.php";
+                    ?>
                 </div>
             </div>
         </div>
         
         <div class="col-12">
             <div class="postsPanel adminBlue">
+                
+                <div class="titleRow">
+                    <div class="warningBTNCol"><input type="submit" class="deleteAllBTN" value="WIPE ALL"/> </div>
+                </div>
+                
+                <hr />
+                
                 <div class="titleRow">
                     <div class="imageCol"><p>Image URL</p></div>
                     <div class="descripCol"><p>Description</p></div>
                 </div>
+                <form action="../operations/formHandler.php" method="post">
                 
                 <?php 
-                   // include "../operations/collectFromDB.php";
+                    //include "../operations/collectFromDB.php";
                 
                     echo getTable();
                 ?>
                 
-                <div class="titleRow">
-                    <p>Add New Posts</p>
+                <div class="tableRow">
+                    <input type="submit" class="saveAllBTN" value="Save Changes" name="saveAllPosts"/>
                 </div>
+                </form>
+                
+                <br />
+                <hr />
+                
                 <div class="titleRow">
                     <div class="keywordCol"><p>Keyword</p></div>
                     <div class="numCol"><p>Amount</p></div>
@@ -67,13 +89,14 @@
                 <div class="tableRow">
                     <input type="text" class="keywordsBox" />
                     <input type="number" class="numBox" />
-                    <input type="submit" class="findBTN" value="Add Posts"/> 
+                    <input type="submit" class="findBTN" value="Add Posts" /> 
                 </div>
             </div>
         </div>
         
         <div class="col-12">
             <div class="postsPanel adminBlue">
+                
                 <div class="titleRow">
                     <div class="imageCol"><p>Site Title</p></div>
                 </div>
@@ -81,6 +104,10 @@
                 <div class="tableRow">
                     <input type="text" class="imageBox" />
                 </div>
+                
+                <br />
+                <hr />
+                
                 <div class="titleRow">
                     <div class="imageCol"><p>Theme</p></div>
                 </div>
@@ -92,6 +119,10 @@
                         <option value="Pink">Pink</option>
                         <option value="Blue">Blue</option>
                     </select>
+                </div>
+                
+                <div class="tableRow">
+                    <input type="submit" class="saveAllBTN" value="Save Changes"/>
                 </div>
             </div>
         </div>

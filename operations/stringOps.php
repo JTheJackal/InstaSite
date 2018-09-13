@@ -54,6 +54,12 @@
         }
     }
     
+    function removeQuotes($string){
+        
+        $tempString = str_replace('"', '', $string);
+        return $tempString;
+    }
+    
     function createURL($title, $postID, $keywords){
         
         //Ensure the title is UTF-8 encoded.
